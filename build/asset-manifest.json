@@ -1,10 +1,12 @@
 {
   "files": {
-    "main.js": "/static/js/main.6d56ee90.js",
+    "main.js": "/static/js/main.88cc597e.js",
+    "static/media/Aurora_Logo_Sym_White.svg": "/static/media/Aurora_Logo_Sym_White.5cabd37051c97bbe997c0cf1678a8418.svg",
+    "static/media/drawing.svg": "/static/media/drawing.3e9eb7f3c500ad01e30e72808d500190.svg",
     "index.html": "/index.html",
-    "main.6d56ee90.js.map": "/static/js/main.6d56ee90.js.map"
+    "main.88cc597e.js.map": "/static/js/main.88cc597e.js.map"
   },
   "entrypoints": [
-    "static/js/main.6d56ee90.js"
+    "static/js/main.88cc597e.js"
   ]
 }
