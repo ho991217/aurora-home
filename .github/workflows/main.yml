@@ -36,9 +36,8 @@
 #             --region ap-northeast-2 \
 #             build s3://aurora-github-workflow
 
-
 name: Deploy
-on
+on:
   push:
     branches:
       - prod
@@ -59,7 +58,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: zip create 
+      - name: zip create
         run: zip -qq -r ./build-fe.zip .
         shell: bash
 
