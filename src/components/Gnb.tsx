@@ -46,11 +46,13 @@ const Menu = styled.ul`
 
 const MenuItem = styled.li``;
 
-const Anchor = styled(Link)<{ theme: theme }>`
+const Anchor = styled(Link)<{ themeColor: theme }>`
   color: ${({ theme }) => (theme === "light" ? "#000" : "#fff")};
   text-decoration: none;
+  transition: all 0.2s ease-in-out;
   :hover {
     color: ${({ theme }) => theme.colors.primary};
+    font-weight: 600;
   }
 `;
 
@@ -84,7 +86,7 @@ const Gnb = () => {
           <Menu>
             {Routes.map((route) => (
               <MenuItem key={route.id}>
-                <Anchor to={route.link} theme={theme}>
+                <Anchor to={route.link} themeColor={theme}>
                   {route.title}
                 </Anchor>
               </MenuItem>
