@@ -35,3 +35,50 @@ jobs:
             --recursive \
             --region ap-northeast-2 \
             build s3://aurora-github-workflow
+
+
+name: Deploy
+on
+  push:
+    branches:
+      - prod
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04.5
+    steps:
+      - name: Checkout source code.
+        uses: actions/checkout@v2
+
+      - name: Check Node v
+        run: node -v
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: zip create 
+        run: zip -qq -r ./build-fe.zip .
+        shell: bash
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Upload to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp --region ap-northeast-2 ./build-fe.zip s3://aurora-github-workflow/build-fe.zip
+
+      - name: Deploy
+        run: aws deploy create-deployment
+          --application-name aurora
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --deployment-group-name aurora
+          --s3-location bucket=aurora-github-workflow,key=./build-fe.zip,bundleType=zip
