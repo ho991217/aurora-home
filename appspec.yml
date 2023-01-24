@@ -3,10 +3,15 @@ os: linux
 
 files:
   - source: /
-    destination: /usr/share/nginx/html/frontend
+    destination: /home/ubuntu/deploy-fe
     overwrite: yes
 permissions:
-  - object: /usr/share/nginx/html/frontend
-    owner: root
-    group: root
+  - object: /home/ubuntu/deploy-fe
+    owner: ubuntu
+    group: ubuntu
     mode: 755
+hooks:
+  AfterInstall:
+    - location: deploy.sh
+      timeout: 60
+      runas: root
