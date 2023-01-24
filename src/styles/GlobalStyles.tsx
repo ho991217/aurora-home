@@ -21,15 +21,45 @@ export const GlobalStyles = createGlobalStyle`
         font: inherit;
         vertical-align: baseline;
     }
+
+    :root {
+        /* .scroll::-webkit-scrollbar {
+            display: none;
+        } */
+        @media (max-width: 767px) {
+            font-size: 12px;
+        }
+        @media (min-width: 768px) and (max-width: 1023px) {
+            font-size: 14px;
+        }
+        @media (min-width: 1024px) {
+            font-size: 16px;
+        }
+        
+    }
     
     article, aside, details, figcaption, figure, 
     footer, header, hgroup, menu, nav, section {
         display: block;
     }
 
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        
+    }
+
     body {
+        overflow-x: hidden;
         line-height: 1;
         font-family: "SCoreDream";
+        background-color: #080808;
+        letter-spacing: -0.1em;
     }
 
     ol, ul {

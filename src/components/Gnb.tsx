@@ -1,28 +1,37 @@
+import { useDimension } from "hooks/useDimension";
 import { useIsOnTop } from "hooks/useIsOnTop";
-import { useEffect } from "react";
+import { useScrollPos } from "hooks/useScrollPos";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "./Logo";
 
-const Wrapper = styled.div<{ top: boolean }>`
+type theme = "dark" | "light";
+
+const Wrapper = styled.div<{ top: boolean; themeColor: theme }>`
   width: 100vw;
   height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  @media ${({ theme }) => theme.mediaQueries.desktop} {
+    position: fixed;
+  }
+  @media ${({ theme }) => theme.mediaQueries.mobile} {
+    position: absolute;
+  }
   z-index: 99;
   top: 0;
   left: 0;
-  color: #fff;
-  /* mix-blend-mode: difference; */
-  /* background-color: ${({ top }) => (top ? "transparent" : "red")}; */
+  color: #000;
+  backdrop-filter: ${({ top }) => (top ? "none" : "blur(15px)")};
+  transition: all 0.2s ease-in-out;
 `;
 
 const InnerContainer = styled.div`
   height: 100%;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,10 +46,8 @@ const Menu = styled.ul`
 
 const MenuItem = styled.li``;
 
-const LangSelect = styled.div``;
-
-const Anchor = styled(Link)`
-  color: #fff;
+const Anchor = styled(Link)<{ theme: theme }>`
+  color: ${({ theme }) => (theme === "light" ? "#000" : "#fff")};
   text-decoration: none;
 `;
 
@@ -54,22 +61,33 @@ const Routes = [
 
 const Gnb = () => {
   const isOnTop = useIsOnTop();
+  const { page } = useScrollPos();
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const { width } = useDimension();
+
+  useEffect(() => {
+    if (page <= 0) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  }, [page]);
 
   return (
-    <Wrapper top={isOnTop}>
+    <Wrapper top={isOnTop} themeColor={theme}>
       <InnerContainer>
-        <Logo />
-        <Menu>
-          {Routes.map((route) => (
-            <MenuItem key={route.id}>
-              <Anchor to={route.link}>{route.title}</Anchor>
-            </MenuItem>
-          ))}
-        </Menu>
-        <LangSelect>
-          <Anchor to="/ko">KOR</Anchor>
-          <Anchor to="/en">ENG</Anchor>
-        </LangSelect>
+        <Logo color={theme === "dark" ? "#eee" : "#000"} />
+        {width >= 769 && (
+          <Menu>
+            {Routes.map((route) => (
+              <MenuItem key={route.id}>
+                <Anchor to={route.link} theme={theme}>
+                  {route.title}
+                </Anchor>
+              </MenuItem>
+            ))}
+          </Menu>
+        )}
       </InnerContainer>
     </Wrapper>
   );
