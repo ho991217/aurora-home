@@ -49,6 +49,9 @@ const MenuItem = styled.li``;
 const Anchor = styled(Link)<{ theme: theme }>`
   color: ${({ theme }) => (theme === "light" ? "#000" : "#fff")};
   text-decoration: none;
+  :hover {
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 const Routes = [
