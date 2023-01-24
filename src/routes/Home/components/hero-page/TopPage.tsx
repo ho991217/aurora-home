@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import { ReactComponent as DrawingIcon } from "assets/svg/drawing.svg";
 import { ScrollDownIcon } from "./ScrollDownIcon";
-import Image from "assets/images/home/Aurora_BG_FHD.png";
 import { Section } from "../Section";
-// import Video from "assets/videos/home/aurora_hero.mp4";
 
 const HeroDiv = styled.div`
   max-width: 1200px;

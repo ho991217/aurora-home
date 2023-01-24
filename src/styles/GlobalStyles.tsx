@@ -23,15 +23,18 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     :root {
-        /* .scroll::-webkit-scrollbar {
+        .scroll::-webkit-scrollbar {
             display: none;
-        } */
+        }
+
         @media (max-width: 767px) {
             font-size: 12px;
         }
+
         @media (min-width: 768px) and (max-width: 1023px) {
             font-size: 14px;
         }
+
         @media (min-width: 1024px) {
             font-size: 16px;
         }
@@ -51,7 +54,6 @@ export const GlobalStyles = createGlobalStyle`
         height: 100%;
         display: flex;
         flex-direction: column;
-        
     }
 
     body {
