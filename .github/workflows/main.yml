@@ -81,4 +81,4 @@ jobs:
           --application-name aurora
           --deployment-config-name CodeDeployDefault.AllAtOnce
           --deployment-group-name aurora
-          --s3-location bucket=aurora-github-workflow,key=./build-fe.zip,bundleType=zip
+          --s3-location bucket=aurora-github-workflow,key=build-fe.zip,bundleType=zip
