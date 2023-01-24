@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import SecondPage from "./components/second-page/SecondPage";
-import { Section } from "./components/Section";
 import TopPage from "./components/hero-page/TopPage";
 import ThirdPage from "./components/third-page/ThirdPage";
 
